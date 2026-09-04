@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Disaster Alerts | Smart Disaster</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #102a43;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 290px;
+            background: #102f4a;
+            color: white;
+            padding: 32px 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .logo-icon {
+            width: 65px;
+            height: 65px;
+            margin: auto;
+            background: #ff3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .logo h2 {
+            font-size: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 17px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .menu a.active {
+            background: #f52f3e;
+        }
+
+        .logout {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            bottom: 30px;
+            background: #ed2635 !important;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Main */
+        .main {
+            margin-left: 290px;
+            width: calc(100% - 290px);
+            padding: 50px 42px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 45px;
+        }
+
+        .title-area h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .title-area p {
+            color: #718096;
+            font-size: 18px;
+        }
+
+        .user-box {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            font-weight: bold;
+        }
+
+        /* Alert Card */
+        .alert-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 40px;
+            border-left: 7px solid #ef3340;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            position: relative;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .alert-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .alert-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-title h2 {
+            font-size: 28px;
+        }
+
+        .alert-icon {
+            font-size: 30px;
+        }
+
+        /* Priority */
+        .priority {
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .priority.high {
+            background: #ffe0e3;
+            color: #d7192b;
+        }
+
+        .priority.medium {
+            background: #fff1cc;
+            color: #a66a00;
+        }
+
+        .priority.low {
+            background: #dff7e8;
+            color: #147a3e;
+        }
+
+        .alert-message {
+            color: #66788a;
+            font-size: 18px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .alert-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            color: #56697c;
+            font-size: 16px;
+        }
+
+        .info-item strong {
+            color: #183b56;
+        }
+
+        .empty {
+            background: white;
+            padding: 60px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            color: #718096;
+            font-size: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+                padding: 30px;
+            }
+
+            .title-area h1 {
+                font-size: 30px;
+            }
+
+            .alert-title h2 {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 25px;
+            }
+
+            .logout {
+                position: relative;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                margin-top: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .alert-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <h2>Smart Disaster</h2>
+        </div>
+
+        <nav class="menu">
+
+            <a href="/dashboard">
+                🏠 Dashboard
+            </a>
+
+            <a href="/sos">
+                🆘 SOS Emergency
+            </a>
+
+            <a href="/alerts" class="active">
+                🚨 Disaster Alerts
+            </a>
+
+            <a href="/shelters">
+                🏠 Shelters
+            </a>
+
+            <a href="/map">
+                🗺️ Live Map
+            </a>
+
+            <a href="/volunteer">
+                🤝 Volunteer
+            </a>
+
+            <a href="/profile">
+                👤 My Profile
+            </a>
+
+            <a href="/logout" class="logout">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="topbar">
+
+            <div class="title-area">
+                <h1>🚨 Disaster Alerts</h1>
+                <p>
+                    Stay updated with important disaster warnings and emergency notifications.
+                </p>
+            </div>
+
+            <div class="user-box">
+                👤 User
+            </div>
+
+        </div>
+
+
+        <!-- Alert Card -->
+
+        {% if alerts %}
+
+            {% for alert in alerts %}
+
+            <div class="alert-card">
+
+                <div class="alert-header">
+
+                    <div class="alert-title">
+
+                        <span class="alert-icon">🚨</span>
+
+                        <h2>
+                            {{ alert.title }}
+                        </h2>
+
+                    </div>
+
+                    <!-- Priority -->
+                    <span class="priority
+                        {% if alert.severity %}
+                            {{ alert.severity|lower }}
+                        {% else %}
+                            high
+                        {% endif %}
+                    ">
+                        {{ alert.severity or 'High' }}
+                    </span>
+
+                </div>
+
+
+                <div class="alert-message">
+                    {{ alert.message }}
+                </div>
+
+
+                <div class="alert-info">
+
+                    <div class="info-item">
+                        🌪️
+                        <strong>Type:</strong>
+                        {{ alert.disaster_type }}
+                    </div>
+
+                    <div class="info-item">
+                        📍
+                        <strong>Location:</strong>
+                        {{ alert.location or 'Not specified' }}
+                    </div>
+
+                    <div class="info-item">
+                        🕒
+                        <strong>Time:</strong>
+                        {{ alert.created_at }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                🔔 No disaster alerts available right now.
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

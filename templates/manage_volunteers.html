@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Volunteers | Smart Disaster Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #173f63;
+            padding: 35px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #174f78;
+        }
+
+        .header p {
+            margin-top: 6px;
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #174f78;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .back-btn:hover {
+            background: #103b5b;
+        }
+
+        /* Table Wrapper */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            min-width: 1150px;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #174f78;
+            color: white;
+        }
+
+        th {
+            padding: 15px 12px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8fbfd;
+        }
+
+        tbody tr:hover {
+            background: #eef6fb;
+        }
+
+        /* Status */
+        .status {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .approved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        /* Action Buttons */
+        .action {
+            display: flex;
+            gap: 7px;
+        }
+
+        .approve-btn,
+        .reject-btn {
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+            padding: 8px 13px;
+            border-radius: 6px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background: #198754;
+        }
+
+        .approve-btn:hover {
+            background: #146c43;
+        }
+
+        .reject-btn {
+            background: #dc3545;
+        }
+
+        .reject-btn:hover {
+            background: #bb2d3b;
+        }
+
+        /* Approved Text */
+        .approved-text {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        /* Rejected Text */
+        .rejected-text {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* Empty */
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #777;
+            font-size: 17px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+
+        <div>
+            <h1>Volunteer Management</h1>
+            <p>View and manage registered disaster response volunteers.</p>
+        </div>
+
+        <a href="/dashboard" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- Volunteer Table -->
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Skill</th>
+                    <th>Availability</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% if volunteers %}
+
+                    {% for volunteer in volunteers %}
+
+                    <tr>
+
+                        <!-- ID -->
+                        <td>
+                            {{ volunteer.id }}
+                        </td>
+
+                        <!-- User ID -->
+                        <td>
+                            {{ volunteer.user_id }}
+                        </td>
+
+                        <!-- Name -->
+                        <td>
+                            {{ volunteer.name }}
+                        </td>
+
+                        <!-- Email -->
+                        <td>
+                            {{ volunteer.email }}
+                        </td>
+
+                        <!-- Phone -->
+                        <td>
+                            {{ volunteer.phone }}
+                        </td>
+
+                        <!-- Skill -->
+                        <td>
+                            {{ volunteer.skill }}
+                        </td>
+
+                        <!-- Availability -->
+                        <td>
+                            {{ volunteer.availability }}
+                        </td>
+
+                        <!-- Status -->
+                        <td>
+
+                            {% if volunteer.status == 'Pending' %}
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            {% elif volunteer.status == 'Approved' %}
+
+                                <span class="status approved">
+                                    Approved
+                                </span>
+
+                            {% elif volunteer.status == 'Rejected' %}
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="status pending">
+                                    {{ volunteer.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- Created At -->
+                        <td>
+                            {{ volunteer.created_at }}
+                        </td>
+
+
+                        <!-- Action -->
+                        <td>
+
+                            {% if volunteer.status == 'Pending' %}
+
+                                <div class="action">
+
+                                    <!-- Approve -->
+                                    <form
+                                        action="/admin/volunteers/approve/{{ volunteer.id }}"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="approve-btn"
+                                        >
+                                            ✓ Approve
+                                        </button>
+
+                                    </form>
+
+
+                                    <!-- Reject -->
+                                    <form
+                                        action="/admin/volunteers/reject/{{ volunteer.id }}"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="reject-btn"
+                                        >
+                                            ✕ Reject
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+
+                            {% elif volunteer.status == 'Approved' %}
+
+                                <span class="approved-text">
+                                    ✓ Approved
+                                </span>
+
+
+                            {% elif volunteer.status == 'Rejected' %}
+
+                                <span class="rejected-text">
+                                    ✕ Rejected
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="10"
+                            class="empty"
+                        >
+                            No volunteer registrations found.
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

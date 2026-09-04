@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shelters | Smart Disaster</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #102a43;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 290px;
+            background: #102f4a;
+            color: white;
+            padding: 32px 20px;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .logo-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: auto;
+            margin-bottom: 18px;
+
+            background: #ff3545;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 32px;
+        }
+
+        .logo h2 {
+            font-size: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+
+            padding: 16px 20px;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .menu a.active {
+            background: #f52f3e;
+        }
+
+        .logout {
+            position: absolute;
+
+            left: 20px;
+            right: 20px;
+            bottom: 30px;
+
+            background: #ed2635 !important;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 290px;
+
+            width: calc(100% - 290px);
+
+            padding: 50px 42px;
+        }
+
+
+        /* ================= TOP BAR ================= */
+
+        .topbar {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 45px;
+        }
+
+        .title-area h1 {
+            font-size: 38px;
+
+            margin-bottom: 10px;
+        }
+
+        .title-area p {
+            color: #718096;
+
+            font-size: 18px;
+        }
+
+        .user-box {
+            background: white;
+
+            padding: 15px 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+            font-weight: bold;
+        }
+
+
+        /* ================= SHELTER GRID ================= */
+
+        .shelter-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* ================= SHELTER CARD ================= */
+
+        .shelter-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.07);
+
+            transition: 0.3s;
+
+            border-top: 5px solid #2563eb;
+        }
+
+        .shelter-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 16px 35px rgba(0,0,0,0.12);
+        }
+
+
+        /* ================= CARD HEADER ================= */
+
+        .card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .shelter-icon {
+
+            width: 52px;
+            height: 52px;
+
+            background: #e8f0ff;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+        }
+
+        .shelter-title {
+
+            flex: 1;
+        }
+
+        .shelter-title h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 7px;
+        }
+
+        .location {
+
+            color: #718096;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status {
+
+            padding: 7px 13px;
+
+            border-radius: 30px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+        .status.available {
+
+            background: #dff7e8;
+
+            color: #147a3e;
+        }
+
+        .status.full {
+
+            background: #ffe0e3;
+
+            color: #d7192b;
+        }
+
+
+        /* ================= INFO ================= */
+
+        .info {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            margin: 25px 0;
+        }
+
+        .info-box {
+
+            background: #f7f9fc;
+
+            padding: 14px;
+
+            border-radius: 12px;
+        }
+
+        .info-box span {
+
+            display: block;
+
+            color: #718096;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+
+            font-size: 17px;
+
+            color: #183b56;
+        }
+
+
+        /* ================= CONTACT ================= */
+
+        .contact {
+
+            color: #52667a;
+
+            font-size: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .details-btn {
+
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            background: #1769ff;
+
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .details-btn:hover {
+
+            background: #0d55d9;
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+
+            background: white;
+
+            padding: 60px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.06);
+
+            color: #718096;
+
+            font-size: 20px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+
+            .shelter-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+
+                width: 220px;
+            }
+
+            .main {
+
+                margin-left: 220px;
+
+                width:
+                    calc(100% - 220px);
+
+                padding: 30px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .layout {
+
+                display: block;
+            }
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+
+                padding: 25px;
+            }
+
+            .shelter-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+            .logout {
+
+                position: relative;
+
+                left: auto;
+                right: auto;
+                bottom: auto;
+
+                margin-top: 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🛡️
+            </div>
+
+            <h2>
+                Smart Disaster
+            </h2>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="/dashboard">
+                🏠 Dashboard
+            </a>
+
+            <a href="/sos">
+                🆘 SOS Emergency
+            </a>
+
+            <a href="/alerts">
+                🚨 Disaster Alerts
+            </a>
+
+            <a href="/shelters"
+               class="active">
+                🏠 Shelters
+            </a>
+
+            <a href="/map">
+                🗺️ Live Map
+            </a>
+
+            <a href="/volunteer">
+                🤝 Volunteer
+            </a>
+
+            <a href="/profile">
+                👤 My Profile
+            </a>
+
+            <a href="/logout"
+               class="logout">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div class="title-area">
+
+                <h1>
+                    🏠 Nearby Shelters
+                </h1>
+
+                <p>
+                    Find safe shelters and emergency accommodation near you.
+                </p>
+
+            </div>
+
+
+            <div class="user-box">
+                👤 User
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= SHELTERS ================= -->
+
+        {% if shelters %}
+
+        <div class="shelter-grid">
+
+
+            {% for shelter in shelters %}
+
+
+            <div class="shelter-card">
+
+
+                <!-- HEADER -->
+
+                <div class="card-header">
+
+
+                    <div class="shelter-icon">
+                        🏠
+                    </div>
+
+
+                    <div class="shelter-title">
+
+                        <h2>
+                            {{ shelter.name }}
+                        </h2>
+
+                        <div class="location">
+                            📍 {{ shelter.location }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    {% if shelter.status == 'Full' %}
+
+                        <span class="status full">
+                            FULL
+                        </span>
+
+                    {% else %}
+
+                        <span class="status available">
+                            AVAILABLE
+                        </span>
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <!-- INFORMATION -->
+
+                <div class="info">
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Total Capacity
+                        </span>
+
+                        <strong>
+                            👥 {{ shelter.capacity }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Available
+                        </span>
+
+                        <strong>
+                            🟢 {{ shelter.available }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CONTACT -->
+
+                <div class="contact">
+
+                    📞
+                    <strong>
+                        Contact:
+                    </strong>
+
+                    {{ shelter.contact or 'Not available' }}
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <a href="#"
+                   class="details-btn">
+
+                    View Details →
+
+                </a>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+            🏠
+
+            <br><br>
+
+            No shelters available right now.
+
+        </div>
+
+
+        {% endif %}
+
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer | Smart Disaster</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #102a43;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 310px;
+            background: #123653;
+            color: white;
+            padding: 35px 20px 25px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: #ff3345;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            font-size: 35px;
+        }
+
+        .logo h2 {
+            margin-top: 18px;
+            font-size: 24px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 22px;
+            border-radius: 12px;
+            font-size: 18px;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #ff3345;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            background: #ed1c2e !important;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Main */
+        .main {
+            margin-left: 310px;
+            width: calc(100% - 310px);
+            padding: 55px 45px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .heading h1 {
+            font-size: 40px;
+            color: #123653;
+        }
+
+        .heading p {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .user {
+            background: white;
+            padding: 16px 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #ff3345, #c91526);
+            color: white;
+            padding: 35px;
+            border-radius: 22px;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 30px rgba(239, 35, 60, 0.25);
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .stat-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            color: #123653;
+        }
+
+        .stat-card p {
+            margin-top: 7px;
+            color: #64748b;
+        }
+
+        /* Tasks */
+        .tasks {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .tasks h2 {
+            font-size: 27px;
+            margin-bottom: 25px;
+        }
+
+        .task {
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .task:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-info h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .task-info p {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .task-btn {
+            background: #ff3345;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .task-btn:hover {
+            background: #d91f30;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #fff0f1;
+            color: #e11d48;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 230px;
+            }
+
+            .main {
+                margin-left: 230px;
+                width: calc(100% - 230px);
+                padding: 35px 25px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .task {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <h2>Smart Disaster</h2>
+        </div>
+
+        <nav class="menu">
+
+            <a href="/dashboard">
+                🏠 Dashboard
+            </a>
+
+            <a href="/sos">
+                🆘 SOS Emergency
+            </a>
+
+            <a href="/alerts">
+                🚨 Disaster Alerts
+            </a>
+
+            <a href="/shelters">
+                🏠 Shelters
+            </a>
+
+            <a href="/map">
+                🗺️ Live Map
+            </a>
+
+            <a href="/volunteer" class="active">
+                🤝 Volunteer
+            </a>
+
+            <a href="/profile">
+                👤 My Profile
+            </a>
+
+            <a href="/logout" class="logout">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="top">
+
+            <div class="heading">
+                <h1>🤝 Volunteer</h1>
+                <p>
+                    Join emergency response activities and help people during disasters.
+                </p>
+            </div>
+
+            <div class="user">
+                👤 User
+            </div>
+
+        </div>
+
+
+        <!-- Hero -->
+        <section class="hero">
+
+            <h2>🤝 Become an Emergency Volunteer</h2>
+
+            <p>
+                Your support can make a difference during emergencies.
+                Join disaster response activities, help affected people,
+                distribute relief and support emergency teams.
+            </p>
+
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">🤝</div>
+                <h3>24</h3>
+                <p>Active Volunteers</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <h3>8</h3>
+                <p>Available Tasks</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">❤️</div>
+                <h3>156</h3>
+                <p>People Helped</p>
+            </div>
+
+        </section>
+
+
+        <!-- Tasks -->
+        <section class="tasks">
+
+            <h2>📋 Available Volunteer Tasks</h2>
+
+
+            <div class="task">
+
+                <div class="task-info">
+
+                    <h3>🏠 Shelter Support</h3>
+
+                    <p>
+                        Help organize emergency shelters and assist
+                        displaced people.
+                    </p>
+
+                    <span class="status">
+                        Available
+                    </span>
+
+                </div>
+
+                <button class="task-btn">
+                    Join Task
+                </button>
+
+            </div>
+
+
+            <div class="task">
+
+                <div class="task-info">
+
+                    <h3>🍱 Relief Distribution</h3>
+
+                    <p>
+                        Help distribute food, water and emergency
+                        supplies to affected families.
+                    </p>
+
+                    <span class="status">
+                        Available
+                    </span>
+
+                </div>
+
+                <button class="task-btn">
+                    Join Task
+                </button>
+
+            </div>
+
+
+            <div class="task">
+
+                <div class="task-info">
+
+                    <h3>🚑 Emergency Assistance</h3>
+
+                    <p>
+                        Assist emergency response teams during
+                        disaster situations.
+                    </p>
+
+                    <span class="status">
+                        Urgent
+                    </span>
+
+                </div>
+
+                <button class="task-btn">
+                    Join Task
+                </button>
+
+            </div>
+
+
+            <div class="task">
+
+                <div class="task-info">
+
+                    <h3>📢 Awareness Campaign</h3>
+
+                    <p>
+                        Help spread disaster safety information
+                        among local communities.
+                    </p>
+
+                    <span class="status">
+                        Available
+                    </span>
+
+                </div>
+
+                <button class="task-btn">
+                    Join Task
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

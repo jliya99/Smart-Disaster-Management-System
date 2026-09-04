@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage SOS | Smart Disaster</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #263746;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .header {
+            background: #102a43;
+            color: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+        }
+
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #102a43;
+            color: white;
+            padding: 13px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .pending {
+            color: #856404;
+            background: #fff3cd;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .resolved {
+            color: #155724;
+            background: #d4edda;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .resolve-btn {
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 8px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .resolve-btn:hover {
+            background: #146c43;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #ddd;
+            color: #102a43;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🆘 SOS Emergency Requests</h1>
+        <p>Manage emergency SOS requests from users.</p>
+    </div>
+
+
+    <div class="table-box">
+
+        {% if sos_requests %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for sos in sos_requests %}
+
+                <tr>
+
+                    <td>{{ sos.id }}</td>
+
+                    <td>
+                        {{ sos.name if sos.name else 'Unknown User' }}
+                    </td>
+
+                    <td>
+                        {{ sos.email if sos.email else 'N/A' }}
+                    </td>
+
+                    <td>
+                        {{ sos.message }}
+                    </td>
+
+                    <td>
+                        {{ sos.location if sos.location else 'N/A' }}
+                    </td>
+
+                    <td>
+
+                        {% if sos.status == 'Pending' %}
+
+                            <span class="pending">
+                                🟡 Pending
+                            </span>
+
+                        {% else %}
+
+                            <span class="resolved">
+                                🟢 Resolved
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {{ sos.created_at }}
+                    </td>
+
+                    <td>
+
+                        {% if sos.status == 'Pending' %}
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('resolve_sos', sos_id=sos.id) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="resolve-btn"
+                            >
+                                Resolve
+                            </button>
+
+                        </form>
+
+                        {% else %}
+
+                            <span>✓ Done</span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <p>No SOS requests found.</p>
+
+        {% endif %}
+
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
