@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>AI Risk Prediction</title>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f8ff;
+
+}
+
+
+/* Main Container */
+
+.container{
+
+    width:95%;
+    margin:30px auto;
+
+}
+
+
+
+/* Header */
+
+.header h1{
+
+    font-size:32px;
+    color:#111;
+    margin-bottom:5px;
+
+}
+
+
+.subtitle{
+
+    color:#666;
+    font-size:16px;
+
+}
+
+
+
+/* Two Column */
+
+.main{
+
+    display:grid;
+
+    grid-template-columns:45% 55%;
+
+    gap:25px;
+
+    margin-top:30px;
+
+}
+
+
+
+/* Card */
+
+.card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0px 3px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+.card h2{
+
+    color:#16324f;
+
+    margin-bottom:25px;
+
+    font-size:22px;
+
+}
+
+
+
+
+/* Form */
+
+label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-top:18px;
+
+    color:#333;
+
+}
+
+
+
+select,input{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:8px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    background:white;
+
+}
+
+
+
+
+button{
+
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:15px;
+
+    border:none;
+
+    background:#1769e0;
+
+    color:white;
+
+    font-size:17px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+
+}
+
+
+button:hover{
+
+    background:#0d56bd;
+
+}
+
+
+
+
+/* Result */
+
+
+.result-box{
+
+    background:#fff0f0;
+
+    padding:35px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.result-title{
+
+    font-size:18px;
+
+    color:#555;
+
+}
+
+
+
+.risk{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    color:#d62828;
+
+    margin-top:10px;
+
+}
+
+
+
+.warning{
+
+    font-size:50px;
+
+}
+
+
+
+
+
+/* Details */
+
+
+.details{
+
+    background:#fafafa;
+
+    border-radius:10px;
+
+    padding:10px;
+
+}
+
+
+
+.row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:16px;
+
+    border-bottom:1px solid #ddd;
+
+    font-size:17px;
+
+}
+
+
+
+.row:last-child{
+
+    border:none;
+
+}
+
+
+
+.row span{
+
+    color:#555;
+
+}
+
+
+
+.row b{
+
+    color:#111;
+
+}
+
+
+
+
+/* Recommendation */
+
+
+.recommend{
+
+    margin-top:25px;
+
+    padding:25px;
+
+    background:#e9f8ec;
+
+    border-radius:12px;
+
+    color:#225d32;
+
+    line-height:1.6;
+
+    font-size:16px;
+
+}
+
+
+
+.recommend h3{
+
+    margin-top:0;
+
+    color:#16803c;
+
+}
+
+
+
+/* Responsive */
+
+
+@media(max-width:900px){
+
+.main{
+
+grid-template-columns:1fr;
+
+}
+
+
+}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+
+<div class="header">
+
+
+<h1>🧠 AI Risk Prediction</h1>
+
+
+<p class="subtitle">
+Predict possible disaster risk based on environmental conditions.
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="main">
+
+
+
+<!-- LEFT SIDE -->
+
+<div class="card">
+
+
+<h2>📄 Input Information</h2>
+
+<form method="POST" action="/risk-prediction">
+
+
+<label>
+Disaster Type *
+</label>
+
+
+
+<select name="disaster">
+<option>Flood</option>
+
+<option>Cyclone</option>
+
+<option>Landslide</option>
+
+<option>River Erosion</option>
+
+</select>
+
+
+
+
+<label>
+District *
+</label>
+
+<select name="district">
+
+
+<option>Sylhet</option>
+
+<option>Dhaka</option>
+
+<option>Chattogram</option>
+
+<option>Barishal</option>
+
+<option>Rajshahi</option>
+
+<option>Khulna</option>
+
+</select>
+
+
+
+
+
+<label>
+Rainfall Level *
+</label>
+
+
+<select name="rainfall">
+
+
+<option>High</option>
+
+<option>Medium</option>
+
+<option>Low</option>
+
+
+</select>
+
+
+
+
+
+<label>
+River Condition *
+</label>
+
+
+<select name="river">
+
+
+<option>Rising</option>
+
+<option>Normal</option>
+
+<option>Low</option>
+
+
+</select>
+
+
+
+
+
+<label>
+Previous Disaster History *
+</label>
+
+
+<select name="history">
+
+
+<option>Yes</option>
+
+<option>No</option>
+
+
+</select>
+
+<label>
+Temperature (°C) *
+</label>
+
+<input 
+type="number" 
+name="temperature"
+placeholder="Enter temperature"
+required
+>
+
+
+<label>
+Humidity (%) *
+</label>
+
+<input 
+type="number" 
+name="humidity"
+placeholder="Enter humidity"
+required
+>
+
+
+<label>
+Wind Speed (km/h) *
+</label>
+
+<input 
+type="number" 
+name="wind_speed"
+placeholder="Enter wind speed"
+required
+>
+
+
+<label>
+Rainfall (mm) *
+</label>
+
+<input 
+type="number" 
+name="rainfall"
+placeholder="Enter rainfall"
+required
+>
+
+
+<label>
+Pressure (hPa) *
+</label>
+
+<input 
+type="number" 
+name="pressure"
+placeholder="Enter pressure"
+required
+>
+
+
+
+<button type="submit">
+
+🤖 Predict Risk
+
+</button>
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+<!-- RIGHT SIDE -->
+
+
+<div class="card">
+
+
+
+<h2>📊 Prediction Result</h2>
+
+
+
+<div class="result-box">
+
+
+<div class="result-title">
+
+Risk Level
+
+</div>
+
+
+
+<div class="risk">
+
+{% if prediction %}
+
+{{ prediction }}
+
+{% else %}
+
+No Result
+
+{% endif %}
+
+</div>
+
+
+<div class="warning">
+
+⚠️
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="details">
+
+
+
+<div class="row">
+
+<span>📍 District</span>
+
+<b>{{ district }}</b>
+
+</div>
+
+
+
+<div class="row">
+
+<span>🌊 Disaster Type</span>
+
+<b>{{ disaster }}</b>
+
+</div>
+
+
+
+
+<div class="row">
+
+<span>🌧 Rainfall Level</span>
+
+<b>{{ rainfall_level }}</b>
+
+</div>
+
+
+
+
+<div class="row">
+
+<span>🌊 River Condition</span>
+
+<b>{{ river }}</b>
+
+</div>
+
+
+
+
+<div class="row">
+
+<span>⏱ Previous History</span>
+
+<b>{{ history }}</b>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="recommend">
+
+
+<h3>
+💡 Recommendation
+</h3>
+
+
+High chance of flood in this area.
+Please stay alert and move to the nearest shelter if required.
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</body>
+
+
+</html>

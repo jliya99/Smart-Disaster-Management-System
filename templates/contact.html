@@ -1,16 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+
+    <title>Contact | Smart Disaster Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172b4d;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #0f2f4f;
+            height: 75px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #4da3ff;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0f2f4f, #1769aa);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #e8f3ff;
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1050px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 30px;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 5px 20px rgba(15,47,79,0.08);
+        }
+
+        .card h2 {
+            color: #0f2f4f;
+            margin-bottom: 18px;
+        }
+
+        .card p {
+            color: #5b6b7d;
+            line-height: 1.7;
+        }
+
+        /* CONTACT INFO */
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            background: #eef6ff;
+            color: #1769aa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            flex-shrink: 0;
+        }
+
+        .contact-item h3 {
+            color: #0f2f4f;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .contact-item p {
+            font-size: 14px;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0f2f4f;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d7e0ea;
+            border-radius: 9px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #1769aa;
+            box-shadow: 0 0 0 3px rgba(23,105,170,0.10);
+        }
+
+        .form-group textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #1769aa;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #0f2f4f;
+        }
+
+        /* EMERGENCY */
+        .emergency {
+            margin-top: 30px;
+            background: #fff4f4;
+            border-left: 5px solid #e53935;
+            padding: 22px;
+            border-radius: 10px;
+        }
+
+        .emergency h3 {
+            color: #d32f2f;
+            margin-bottom: 8px;
+        }
+
+        .emergency p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f2f4f;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Contact Page</h1>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ Smart Disaster
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/weather">Weather</a>
+            <a href="/map">Live Map</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>Contact Us</h1>
+
+        <p>
+            Have a question, suggestion or need assistance?
+            Get in touch with the Smart Disaster Management System team.
+        </p>
+
+    </section>
+
+
+    <div class="container">
+
+        <div class="contact-grid">
+
+            <!-- CONTACT INFORMATION -->
+            <div class="card">
+
+                <h2>Get In Touch</h2>
+
+                <p>
+                    We are here to help. Contact us for questions,
+                    feedback or information about the system.
+                </p>
+
+
+                <div class="contact-item">
+
+                    <div class="icon">📧</div>
+
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@smartdisaster.com</p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="icon">📞</div>
+
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+880 1XXXXXXXXX</p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="icon">📍</div>
+
+                    <div>
+                        <h3>Location</h3>
+                        <p>Dhaka, Bangladesh</p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="icon">🤖</div>
+
+                    <div>
+                        <h3>AI Support</h3>
+                        <p>
+                            Our intelligent system continuously monitors
+                            disaster-related information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="emergency">
+
+                    <h3>🚨 Emergency Notice</h3>
+
+                    <p>
+                        If you are facing an immediate emergency,
+                        please use the SOS Emergency feature from
+                        the dashboard or contact your local emergency services.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT FORM -->
+            <div class="card">
+
+                <h2>Send Us a Message</h2>
+
+                <form action="{{ url_for('contact') }}" method="POST"></form>
+
+                    <div class="form-group">
+
+                        <label for="name">Full Name</label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">Email Address</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="subject">Subject</label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            placeholder="Enter subject"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">Message</label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Write your message..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="submit-btn">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        © 2026 Smart Disaster Management System
+
+    </footer>
 
 </body>
-
 </html>

@@ -298,6 +298,10 @@
             <a href="{{ url_for('alerts') }}">
                 🚨 Disaster Alerts
             </a>
+            
+            <a href="/weather">
+                🌦️ Weather
+            </a>
 
             <a href="{{ url_for('shelters') }}">
                 🏠 Shelters
@@ -428,6 +432,23 @@
                 </a>
 
             </div>
+            <div class="card">
+
+                <h3>📩 Contact Messages</h3>
+
+                <h1 style="color:#e63946;"> 
+                    {{ message_count }}
+                </h1>
+
+                <p>
+                   Total user messages
+                </p>
+
+                <a href="/admin/messages">
+                   View Messages →
+                </a>
+
+            </div>
 
 
             <div class="card">
@@ -445,6 +466,37 @@
 
                 <a href="{{ url_for('live_map') }}">
                     Open Map →
+                </a>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">🌦️</div>
+
+                <h3>Weather</h3>
+
+                <p>Check current weather information.</p>
+
+                <a href="/weather">View Weather →</a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                      🤖
+                </div>
+
+                <h3>AI Risk Prediction</h3>
+
+                <p>
+                       Predict disaster risk using environmental conditions and historical data.
+                </p>
+
+                <a href="{{ url_for('risk_prediction') }}">
+                    Predict Risk →
                 </a>
 
             </div>
@@ -470,7 +522,7 @@
             </div>
 
 
-            <!-- ADMIN ONLY CARD -->
+            <!-- ADMIN ONLY CARDS -->
 
             {% if user and user.user_type == 'admin' %}
 
@@ -492,7 +544,45 @@
                 </a>
 
             </div>
+            
 
+
+            <div class="card admin-card">
+
+                <div class="card-icon">
+                    🚨
+                </div>
+
+                <h3>Add Disaster Alert</h3>
+
+                <p>
+                    Create and publish new disaster alerts for users.
+                </p>
+
+                <a href="{{ url_for('add_alert') }}">
+                    Add Alert →
+                </a>
+
+            </div>
+            
+
+            <div class="card admin-card">
+
+    <div class="card-icon">
+        🤖
+    </div>
+
+    <h3>AI Risk Prediction History</h3>
+
+    <p>
+        View all AI disaster risk prediction records from users.
+    </p>
+
+    <a href="{{ url_for('admin_risk_predictions') }}">
+        View Predictions →
+    </a>
+
+</div>
             {% endif %}
 
         </section>

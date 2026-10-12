@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Disaster Alert</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #102a43;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #102f4a;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #d9e2ec;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #ed2635;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #c91f2c;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #102f4a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add Disaster Alert</h1>
+
+    <p class="subtitle">
+        Create a new emergency disaster alert.
+    </p>
+
+    <form method="POST" action="/admin/add-alert">
+
+        <label>Alert Title</label>
+        <input
+            type="text"
+            name="title"
+            placeholder="Example: Cyclone Warning"
+            required
+        >
+
+        <label>Message</label>
+        <textarea
+            name="message"
+            placeholder="Enter disaster warning message..."
+            required
+        ></textarea>
+
+        <label>Disaster Type</label>
+        <select name="disaster_type" required>
+            <option value="">Select disaster type</option>
+            <option value="Cyclone">Cyclone</option>
+            <option value="Flood">Flood</option>
+            <option value="Earthquake">Earthquake</option>
+            <option value="Fire">Fire</option>
+            <option value="Landslide">Landslide</option>
+            <option value="Tsunami">Tsunami</option>
+        </select>
+
+        <label>Location</label>
+        <input
+            type="text"
+            name="location"
+            placeholder="Example: Barishal"
+        >
+
+        <label>Severity</label>
+        <select name="severity" required>
+            <option value="">Select severity</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+
+        <button type="submit">
+             Publish Alert
+        </button>
+
+    </form>
+
+    <a href="/alerts" class="back">
+        ← Back to Disaster Alerts
+    </a>
+
+</div>
+
+</body>
+</html>

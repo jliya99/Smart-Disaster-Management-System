@@ -2,14 +2,749 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Map</title>
+
+<meta charset="UTF-8">
+
+<title>Bangladesh Live Disaster Map</title>
+
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Arial,sans-serif;
+}
+
+
+body{
+    background:#f5f5f5;
+}
+
+
+/* Header */
+
+.header{
+
+    background:linear-gradient(135deg,#e63946,#b51725);
+
+    color:white;
+
+    padding:25px 40px;
+
+}
+
+
+.header h1{
+
+    font-size:32px;
+
+}
+
+
+.header p{
+
+    margin-top:8px;
+
+}
+
+
+
+/* Map */
+
+#map{
+
+    height:700px;
+
+    width:100%;
+
+}
+
+
+
+/* Legend */
+
+.legend{
+
+    background:white;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+
+    line-height:25px;
+
+}
+
+
+.legend h3{
+
+    color:#b51725;
+
+    margin-bottom:10px;
+
+}
+
+
+.dot{
+
+    width:15px;
+
+    height:15px;
+
+    display:inline-block;
+
+    border-radius:50%;
+
+    margin-right:8px;
+
+}
+
+
+.red{
+
+    background:#e63946;
+
+}
+
+
+.green{
+
+    background:#2a9d8f;
+
+}
+
+.orange{
+
+    background:#f4a261;
+}
+
+.blue{
+
+    background:#457b9d;
+
+}
+
+
+.dot.sos{
+
+    background:red;
+
+    border:3px solid black;
+
+}
+
+
+
+</style>
+
+
 </head>
+
 
 <body>
 
-    <h1>Live Map Page</h1>
+
+<div class="header">
+
+<h1>
+🌍 Bangladesh Live Disaster Map
+</h1>
+
+
+<p>
+Smart Disaster Management System
+</p>
+
+
+</div>
+
+
+
+<div id="map"></div>
+
+
+
+
+<!-- Leaflet JS -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
+
+<script>
+
+
+// Create Map
+
+var map = L.map('map');
+
+
+
+// Bangladesh View
+
+var bounds = [
+
+[20.5,88.0],
+
+[26.8,92.7]
+
+];
+
+
+map.setView([23.6850, 90.3563], 7);
+
+
+
+
+// OpenStreetMap
+
+L.tileLayer(
+
+'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+
+{
+
+maxZoom:19
+
+}
+
+).addTo(map);
+// ===============================
+// Disaster Marker From Database
+// ===============================
+
+
+fetch('/api/disasters')
+
+.then(response => response.json())
+
+.then(data => {
+
+
+    let added = new Set();
+
+    data.forEach(function(disaster){
+
+        let key = disaster.disaster_name + disaster.latitude;
+
+
+        if(added.has(key)){
+           return;
+        }
+
+
+        added.add(key);
+
+
+
+        var color = "#e63946";
+
+
+        if(disaster.severity == "Low"){
+
+            color = "#2a9d8f";
+
+        }
+
+        else if(disaster.severity == "Medium"){
+
+            color = "#f4a261";
+
+        }
+
+
+
+
+
+        var icon = L.divIcon({
+
+            html:
+
+            `
+
+            <div style="
+
+            width:35px;
+
+            height:35px;
+
+            background:${color};
+
+            border-radius:50%;
+
+            border:4px solid white;
+
+           box-shadow:0 0 20px red;
+
+            ">
+
+            </div>
+
+            `,
+
+            className:""
+
+        });
+
+
+
+
+
+        var marker = L.marker(
+
+        [
+
+        parseFloat(disaster.latitude),
+
+        parseFloat(disaster.longitude)
+
+        ],
+
+        {
+
+        icon:icon
+
+        }
+
+        )
+
+        .addTo(map);
+
+
+
+
+
+        marker.bindPopup(
+
+        `
+
+        <h3 style="color:#b51725">
+
+        ${disaster.disaster_name}
+
+        </h3>
+
+
+        <p>
+
+        <b>Type:</b>
+
+        ${disaster.disaster_type}
+
+        </p>
+
+
+        <p>
+
+        <b>Location:</b>
+
+        ${disaster.location}
+
+        </p>
+
+
+        <p>
+
+        <b>Severity:</b>
+
+        ${disaster.severity}
+
+        </p>
+
+
+        <p>
+
+        ${disaster.description}
+
+        </p>
+
+
+        `
+
+        );
+
+
+
+    });
+
+
+})
+
+.catch(error=>{
+
+console.log(
+"Disaster API Error:",
+error
+);
+
+});
+
+
+
+
+
+
+
+// ===============================
+// Shelter Marker From Database
+// ===============================
+
+
+
+fetch('/api/shelters')
+
+.then(response=>response.json())
+
+.then(data=>{
+
+
+    data.forEach(function(shelter){
+
+
+
+        var shelterIcon = L.divIcon({
+
+            html:
+
+            `
+
+            <div style="
+
+            width:35px;
+
+            height:35px;
+
+            background:#2a9d8f;
+
+            border-radius:50%;
+
+            border:4px solid white;
+
+            box-shadow:0 0 10px #555;
+
+            ">
+
+            </div>
+
+            `,
+
+            className:""
+
+        });
+
+
+
+
+        var marker = L.marker(
+
+        [
+
+        parseFloat(shelter.latitude),
+
+        parseFloat(shelter.longitude)
+
+        ],
+
+        {
+
+        icon:shelterIcon
+
+        }
+
+        )
+
+        .addTo(map);
+
+
+
+
+
+        marker.bindPopup(
+
+        `
+
+        <h3 style="color:#2a9d8f">
+
+        ${shelter.name}
+
+        </h3>
+
+
+        <p>
+
+        <b>District:</b>
+        ${shelter.district}
+
+        </p>
+
+
+        <p>
+
+        <b>Capacity:</b>
+        ${shelter.capacity}
+
+        </p>
+
+
+        <p>
+
+        <b>Available:</b>
+        ${shelter.available}
+
+        </p>
+
+
+        <p>
+
+        <b>Status:</b>
+        ${shelter.status}
+
+        </p>
+
+
+        `
+
+        );
+
+
+
+    });
+
+
+
+})
+
+.catch(error=>{
+
+console.log(
+"Shelter API Error:",
+error
+);
+
+});
+
+
+
+
+
+
+// ===============================
+// SOS Marker From Database
+// ===============================
+
+
+
+fetch('/api/sos_requests')
+
+.then(response=>response.json())
+
+.then(data=>{
+
+
+data.forEach(function(sos){
+
+
+
+var sosIcon = L.divIcon({
+
+html:
+
+`
+
+<div style="
+
+width:30px;
+
+height:30px;
+
+background:red;
+
+border-radius:50%;
+
+border:3px solid white;
+
+box-shadow:0 0 10px red;
+
+">
+
+</div>
+
+`,
+
+className:""
+
+
+});
+
+
+
+
+
+var marker = L.marker(
+
+[
+
+parseFloat(sos.latitude),
+
+parseFloat(sos.longitude)
+
+],
+
+{
+
+icon:sosIcon
+
+}
+
+)
+
+.addTo(map);
+
+
+
+
+
+marker.bindPopup(
+
+`
+
+<h3 style="color:red">
+
+🚨 SOS Request
+
+</h3>
+
+
+<p>
+
+<b>Message:</b>
+
+${sos.message}
+
+</p>
+
+
+<p>
+
+<b>Status:</b>
+
+${sos.status}
+
+</p>
+
+
+`
+
+);
+
+
+
+});
+
+
+})
+
+.catch(error=>{
+
+console.log(
+"SOS API Error:",
+error
+);
+
+});
+
+
+// ===============================
+// Map Legend
+// ===============================
+
+
+var legend = L.control({
+
+    position:'bottomright'
+
+});
+
+
+
+legend.onAdd=function(){
+
+
+var div = L.DomUtil.create(
+
+    'div',
+
+    'legend'
+
+);
+
+
+
+div.innerHTML =
+
+`
+
+<h3>Risk Level</h3>
+
+
+<span class="dot red"></span>
+
+High Risk
+
+<br>
+
+<span class="dot orange"></span>
+
+Medium Risk
+
+<br>
+
+<span class="dot blue"></span>
+
+Monitoring
+
+<br>
+
+
+<span class="dot green"></span>
+
+Safe Zone
+
+<br>
+
+
+<span class="dot sos"></span>
+
+Emergency SOS
+
+
+`;
+
+
+
+return div;
+
+
+};
+
+
+
+legend.addTo(map);
+
+
+
+</script>
+
+
 
 </body>
 

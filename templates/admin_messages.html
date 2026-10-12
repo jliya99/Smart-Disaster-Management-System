@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Admin Contact Messages</title>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Arial,sans-serif;
+}
+
+
+body{
+    background:#f4f6fb;
+}
+
+
+/* Header */
+
+.header{
+
+    background:linear-gradient(135deg,#e63946,#b51725);
+    color:white;
+    padding:30px 50px;
+
+}
+
+
+.header h1{
+
+    font-size:32px;
+
+}
+
+
+.header p{
+
+    margin-top:8px;
+    opacity:.9;
+
+}
+
+
+
+/* Container */
+
+.container{
+
+    width:92%;
+    margin:40px auto;
+
+}
+
+
+
+/* Card */
+
+.card{
+
+    background:white;
+    padding:30px;
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+/* Title */
+
+.title{
+
+    color:#b51725;
+    margin-bottom:25px;
+
+}
+
+
+
+/* Table */
+
+.table-box{
+
+    overflow-x:auto;
+
+}
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+thead{
+
+    background:#e63946;
+    color:white;
+
+}
+
+
+th{
+
+    padding:15px;
+    text-align:left;
+
+}
+
+
+td{
+
+    padding:15px;
+    border-bottom:1px solid #eee;
+
+}
+
+
+tr:hover{
+
+    background:#fff5f5;
+
+}
+
+
+
+/* ID */
+
+.id{
+
+    background:#ffe3e3;
+    color:#b51725;
+
+    padding:7px 12px;
+    border-radius:20px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* Message */
+
+.message{
+
+    max-width:280px;
+    word-wrap:break-word;
+
+}
+
+
+
+/* Status */
+
+.unread{
+
+    background:#ffe3e3;
+    color:#c1121f;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+}
+
+
+.read{
+
+    background:#d1e7dd;
+    color:#146c43;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* Buttons */
+
+
+.read-btn{
+
+    background:#198754;
+    color:white;
+
+    padding:7px 12px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    margin-left:8px;
+
+}
+
+
+
+.delete-btn{
+
+    background:#e63946;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+}
+
+
+.delete-btn:hover{
+
+    background:#b51725;
+
+}
+
+
+
+/* Empty */
+
+
+.empty{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#777;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="header">
+
+<h1>📩 Contact Messages</h1>
+
+<p>
+Smart Disaster Management System - Admin Panel
+</p>
+
+</div>
+
+
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2 class="title">
+User Messages
+</h2>
+
+
+
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Subject</th>
+
+<th>Message</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% if messages %}
+
+
+
+{% for msg in messages %}
+
+
+
+<tr>
+
+
+<td>
+
+<span class="id">
+#{{msg.id}}
+</span>
+
+</td>
+
+
+
+<td>
+{{msg.name}}
+</td>
+
+
+
+<td>
+{{msg.email}}
+</td>
+
+
+
+<td>
+{{msg.subject}}
+</td>
+
+
+
+<td class="message">
+{{msg.message}}
+</td>
+
+
+
+
+<td>
+
+
+{% if msg.status == "Unread" %}
+
+
+<span class="unread">
+Unread
+</span>
+
+
+<a class="read-btn"
+href="/admin/message/read/{{msg.id}}">
+Mark Read
+</a>
+
+
+{% else %}
+
+
+<span class="read">
+Read
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+<td>
+
+{{msg.created_at}}
+
+</td>
+
+
+
+
+
+<td>
+
+
+<a class="delete-btn"
+
+href="/admin/message/delete/{{msg.id}}"
+
+onclick="return confirm('Delete this message?')">
+
+Delete
+
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+{% else %}
+
+
+
+<tr>
+
+<td colspan="8" class="empty">
+
+No Messages Found
+
+</td>
+
+</tr>
+
+
+
+{% endif %}
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</body>
+
+</html>

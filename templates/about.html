@@ -1,16 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+
+    <title>About | Smart Disaster Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172b4d;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #0f2f4f;
+            height: 75px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #4da3ff;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0f2f4f, #1769aa);
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #e8f3ff;
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* IMAGE */
+        .image-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 900px;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(15,47,79,0.08);
+        }
+
+        .card h2 {
+            color: #0f2f4f;
+            margin-bottom: 16px;
+            font-size: 27px;
+        }
+
+        .card p {
+            color: #5b6b7d;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* AI BOX */
+        .ai-box {
+            background: linear-gradient(135deg, #eef6ff, #f5f0ff);
+            border-left: 5px solid #1769aa;
+        }
+
+        .ai-title {
+            color: #1769aa !important;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            background: #f8fafc;
+            border: 1px solid #e3eaf2;
+            border-radius: 13px;
+            padding: 25px;
+            transition: 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(15,47,79,0.10);
+        }
+
+        .feature h3 {
+            color: #0f2f4f;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f2f4f;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 50px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>About Page</h1>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ Smart Disaster
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/weather">Weather</a>
+            <a href="/map">Live Map</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>About Smart Disaster Management</h1>
+
+        <p>
+            An intelligent disaster management platform designed to improve
+            disaster awareness, emergency response and public safety through
+            technology and artificial intelligence.
+        </p>
+
+    </section>
+
+
+    <div class="container">
+
+        <!-- IMAGE -->
+        <div class="image-section">
+
+            <img src="{{ url_for('static', filename='images/about.jpg') }}"
+                 alt="Smart Disaster Management"
+                 class="about-image">
+
+        </div>
+
+
+        <!-- ABOUT -->
+        <div class="card">
+
+            <h2>What is Smart Disaster Management System?</h2>
+
+            <p>
+                Smart Disaster Management System is a web-based platform that
+                brings important disaster management services into one place.
+                It helps users monitor weather conditions, receive disaster
+                alerts, report disasters, find emergency shelters, request
+                SOS assistance and participate as volunteers.
+            </p>
+
+        </div>
+
+
+        <!-- AI -->
+        <div class="card ai-box">
+
+            <h2 class="ai-title">🤖 AI-Powered Disaster Risk Prediction</h2>
+
+            <p>
+                The system uses machine learning to analyze important weather
+                parameters such as temperature, humidity, wind speed, rainfall
+                and atmospheric pressure. Based on these conditions, the
+                system predicts disaster risk as <b>LOW</b>, <b>MEDIUM</b>
+                or <b>HIGH</b>.
+            </p>
+
+            <br>
+
+            <p>
+                When a high disaster risk is detected, the system can
+                automatically generate a disaster alert to help users take
+                necessary precautions.
+            </p>
+
+        </div>
+
+
+        <!-- FEATURES -->
+        <div class="card">
+
+            <h2>System Features</h2>
+
+            <div class="features">
+
+                <div class="feature">
+                    <h3>🚨 Disaster Alerts</h3>
+                    <p>
+                        Provides important disaster warnings and emergency
+                        notifications to users.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <h3>🌦️ Weather Monitoring</h3>
+                    <p>
+                        Shows current weather information and forecast data
+                        for better disaster awareness.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <h3>🗺️ Live Map</h3>
+                    <p>
+                        Displays disaster locations, shelters and useful
+                        emergency information on an interactive map.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <h3>🆘 SOS Emergency</h3>
+                    <p>
+                        Allows users to request emergency assistance during
+                        dangerous situations.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <h3>🏠 Emergency Shelters</h3>
+                    <p>
+                        Helps users find available shelters and emergency
+                        accommodation locations.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <h3>🤝 Volunteers</h3>
+                    <p>
+                        Supports volunteer registration and disaster response
+                        activities.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- GOAL -->
+        <div class="card">
+
+            <h2>Our Goal</h2>
+
+            <p>
+                Our goal is to create a centralized and intelligent disaster
+                management platform that improves preparedness, awareness,
+                communication and emergency response during natural disasters.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        © 2026 Smart Disaster Management System
+
+    </footer>
 
 </body>
-
 </html>

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Weather | Smart Disaster Management System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+          margin: 0;
+           min-height: 100vh;
+           background: linear-gradient(
+           135deg,
+           #003f46,
+            #002832
+        ) !important;
+          color: white;
+                padding: 30px 15px;
+        }
+    
+
+
+        .weather-container {
+
+            width: 100%;
+            max-width: 1050px;
+
+            margin: auto;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.10
+            );
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.20);
+
+            border-radius: 25px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,0.30);
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .header-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+        .header p {
+
+            color:
+                rgba(255,255,255,0.80);
+
+            font-size: 15px;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+
+            display: flex;
+
+            gap: 10px;
+
+            max-width: 650px;
+
+            margin:
+                0 auto 30px;
+        }
+
+        .search-box input {
+
+            flex: 1;
+
+            padding:
+                14px 18px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+        }
+
+        .search-box button {
+
+            border: none;
+
+            padding:
+                14px 22px;
+
+            border-radius: 12px;
+
+            background: #00c6a7;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+
+            transform: translateY(-2px);
+
+            background: #00ad93;
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            background:
+                rgba(220, 50, 50, 0.20);
+
+            border:
+                1px solid
+                rgba(255,100,100,0.40);
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* CURRENT WEATHER */
+
+        .current-weather {
+
+            text-align: center;
+
+            padding: 10px 0 25px;
+        }
+
+        .location {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .coordinates {
+
+            font-size: 13px;
+
+            color:
+                rgba(255,255,255,0.65);
+
+            margin-bottom: 10px;
+        }
+
+        .weather-icon img {
+
+            width: 110px;
+
+            height: 110px;
+        }
+
+        .temperature {
+
+            font-size: 65px;
+
+            font-weight: bold;
+
+            line-height: 1;
+        }
+
+        .condition {
+
+            font-size: 20px;
+
+            text-transform: capitalize;
+
+            margin-top: 12px;
+        }
+
+        .day-night {
+
+            margin-top: 8px;
+
+            color:
+                rgba(255,255,255,0.75);
+        }
+
+
+        /* CURRENT INFO */
+
+        .weather-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .weather-card {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            text-align: center;
+
+            transition: 0.2s;
+        }
+
+        .weather-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+        }
+
+        .card-icon {
+
+            font-size: 26px;
+
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+
+            font-size: 13px;
+
+            color:
+                rgba(255,255,255,0.65);
+
+            margin-bottom: 7px;
+        }
+
+        .card-value {
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* FORECAST */
+
+        .forecast-section {
+
+            margin-top: 35px;
+        }
+
+        .section-title {
+
+            text-align: center;
+
+            font-size: 24px;
+
+            margin-bottom: 20px;
+        }
+
+        .forecast-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 12px;
+        }
+
+        .forecast-card {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            border-radius: 17px;
+
+            padding: 18px 12px;
+
+            text-align: center;
+
+            transition: 0.2s;
+        }
+
+        .forecast-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.16
+                );
+        }
+
+        .forecast-date {
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .forecast-icon img {
+
+            width: 65px;
+
+            height: 65px;
+        }
+
+        .forecast-temp {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin: 5px 0;
+        }
+
+        .forecast-condition {
+
+            font-size: 13px;
+
+            text-transform: capitalize;
+
+            min-height: 35px;
+        }
+
+        .forecast-info {
+
+            font-size: 12px;
+
+            color:
+                rgba(255,255,255,0.70);
+
+            margin-top: 8px;
+
+            line-height: 1.6;
+        }
+        .risk-card {
+            text-align: center;
+            margin-top: 25px;
+            padding: 25px;
+        }
+
+        .risk-level {
+           font-size: 32px;
+          font-weight: bold;
+           margin: 15px 0;
+        }
+
+        .risk-level.low {
+          color: #22c55e;
+        }
+
+        .risk-level.medium {
+           color: #f59e0b;
+        }
+
+        .risk-level.high {
+            color: #ef4444;
+        }
+
+        .risk-card p {
+           font-size: 14px;
+           opacity: 0.85;
+        }
+
+        /* SUN */
+
+        .sun-section {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .sun-card {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+            border-radius: 15px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+
+        /* UPDATED */
+
+        .updated {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color:
+                rgba(255,255,255,0.60);
+
+            font-size: 13px;
+        }
+
+
+        /* BACK BUTTON */
+
+        .back-button {
+
+            display: block;
+
+            width: fit-content;
+
+            margin:
+                25px auto 0;
+
+            padding:
+                12px 25px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.20);
+
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.25
+                );
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .weather-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .forecast-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 15px 10px;
+            }
+
+            .weather-container {
+
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+
+                font-size: 25px;
+            }
+
+            .search-box {
+
+                flex-direction: column;
+            }
+
+            .temperature {
+
+                font-size: 52px;
+            }
+
+            .weather-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 10px;
+            }
+
+            .forecast-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .sun-section {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="weather-container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="header-icon">
+            🌦️
+        </div>
+
+        <h1>
+            Weather Information
+        </h1>
+
+        <p>
+            Real-time weather and forecast
+            for disaster awareness
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <form
+        class="search-box"
+        method="GET"
+        action="{{ url_for('weather') }}"
+    >
+
+        <input
+            type="text"
+            name="city"
+            value="{{ city or 'Barishal' }}"
+            placeholder="Enter Bangladesh city..."
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            🔍 Search
+        </button>
+
+    </form>
+
+
+    <!-- ERROR -->
+
+    {% if error %}
+
+        <div class="error">
+
+            ⚠️ {{ error }}
+
+        </div>
+
+    {% else %}
+
+
+        <!-- CURRENT WEATHER -->
+
+        <div class="current-weather">
+
+            <div class="location">
+
+                📍 {{ city }}, {{ country }}
+
+            </div>
+
+
+            <div class="coordinates">
+
+                Latitude:
+                {{ latitude }}
+
+                &nbsp; | &nbsp;
+
+                Longitude:
+                {{ longitude }}
+
+            </div>
+
+
+            {% if weather_icon %}
+
+                <div class="weather-icon">
+
+                    <img
+                        src="https://openweathermap.org/img/wn/{{ weather_icon }}@2x.png"
+                        alt="{{ weather }}"
+                    >
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="temperature">
+
+                {{ temperature }}°C
+
+            </div>
+
+
+            <div class="condition">
+
+                {{ weather|title }}
+
+            </div>
+
+
+            <div class="day-night">
+
+                🌙 / ☀️
+                {{ day_night }}
+
+            </div>
+
+        </div>
+
+
+        <!-- WEATHER CARDS -->
+
+        <div class="weather-grid">
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    🌡️
+                </div>
+
+                <div class="card-title">
+                    Feels Like
+                </div>
+
+                <div class="card-value">
+                    {{ feels_like }}°C
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    💧
+                </div>
+
+                <div class="card-title">
+                    Humidity
+                </div>
+
+                <div class="card-value">
+                    {{ humidity }}%
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    💨
+                </div>
+
+                <div class="card-title">
+                    Wind Speed
+                </div>
+
+                <div class="card-value">
+                    {{ wind_speed }} m/s
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    🌡️
+                </div>
+
+                <div class="card-title">
+                    Pressure
+                </div>
+
+                <div class="card-value">
+                    {{ pressure }} hPa
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    👁️
+                </div>
+
+                <div class="card-title">
+                    Visibility
+                </div>
+
+                <div class="card-value">
+                    {{ visibility }} km
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    🔺
+                </div>
+
+                <div class="card-title">
+                    Minimum
+                </div>
+
+                <div class="card-value">
+                    {{ min_temperature }}°C
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    🔻
+                </div>
+
+                <div class="card-title">
+                    Maximum
+                </div>
+
+                <div class="card-value">
+                    {{ max_temperature }}°C
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="card-icon">
+                    🧭
+                </div>
+
+                <div class="card-title">
+                    Wind Direction
+                </div>
+
+                <div class="card-value">
+                    {{ wind_degree }}°
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AI Disaster Risk -->
+        <div class="weather-card risk-card">
+            <div class="card-icon">🤖</div>
+
+                <h3>AI Disaster Risk</h3>
+
+        {% if risk_level == "Low" %}
+            <div class="risk-level low">
+               🟢 LOW
+            </div>
+                 <p>Current weather conditions indicate a low disaster risk.</p>
+
+        {% elif risk_level == "Medium" %}
+            <div class="risk-level medium">
+              🟠 MEDIUM
+            </div>
+              <p>Weather conditions indicate a moderate disaster risk. Stay alert.</p>
+
+        {% elif risk_level == "High" %}
+            <div class="risk-level high">
+               🔴 HIGH
+            </div>
+                <p>High disaster risk detected. Please stay prepared and follow official alerts.</p>
+
+        {% else %}
+            <div class="risk-level">
+                ⚪ UNKNOWN
+            </div>
+               <p>Risk information is currently unavailable.</p>
+         {% endif %}
+        </div>
+
+
+        <!-- SUNRISE / SUNSET -->
+
+        <div class="sun-section">
+
+
+            <div class="sun-card">
+
+                🌅
+
+                <br><br>
+
+                <strong>
+                    Sunrise
+                </strong>
+
+                <br>
+
+                {{ sunrise }}
+
+            </div>
+
+
+            <div class="sun-card">
+
+                🌇
+
+                <br><br>
+
+                <strong>
+                    Sunset
+                </strong>
+
+                <br>
+
+                {{ sunset }}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- 5 DAY FORECAST -->
+
+        {% if forecast %}
+
+        <div class="forecast-section">
+
+            <div class="section-title">
+
+                📅 5-Day Weather Forecast
+
+            </div>
+
+
+            <div class="forecast-grid">
+
+
+                {% for day in forecast %}
+
+                <div class="forecast-card">
+
+
+                    <div class="forecast-date">
+
+                        {{ day.date }}
+
+                    </div>
+
+
+                    <div class="forecast-icon">
+
+                        <img
+                            src="https://openweathermap.org/img/wn/{{ day.icon }}@2x.png"
+                            alt="{{ day.weather }}"
+                        >
+
+                    </div>
+
+
+                    <div class="forecast-temp">
+
+                        {{ day.temperature }}°C
+
+                    </div>
+
+
+                    <div class="forecast-condition">
+
+                        {{ day.weather }}
+
+                    </div>
+
+
+                    <div class="forecast-info">
+
+                        💧 {{ day.humidity }}%
+
+                        <br>
+
+                        💨 {{ day.wind }} m/s
+
+                        <br>
+
+                        🌡️ Feels
+                        {{ day.feels_like }}°C
+
+                    </div>
+
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- LAST UPDATED -->
+
+        <div class="updated">
+
+            Last updated:
+            {{ updated }}
+
+        </div>
+
+
+    {% endif %}
+
+
+    <!-- BACK -->
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back-button"
+    >
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</div>
+
+</body>
+
+</html>

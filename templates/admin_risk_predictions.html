@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Risk Predictions</title>
+
+    <style>
+        table{
+            width:90%;
+            margin:30px auto;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#e63946;
+            color:white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h2 style="text-align:center;">
+    AI Risk Prediction Records
+</h2>
+
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>District</th>
+    <th>Disaster</th>
+    <th>Rainfall</th>
+    <th>Temperature</th>
+    <th>Humidity</th>
+    <th>Wind Speed</th>
+    <th>Pressure</th>
+    <th>Risk Level</th>
+    <th>Date</th>
+</tr>
+
+
+{% for row in predictions %}
+
+<tr>
+
+<td>{{row.id}}</td>
+
+<td>{{row.district}}</td>
+
+<td>{{row.disaster_type}}</td>
+
+<td>{{row.rainfall}}</td>
+
+<td>{{row.temperature}}</td>
+
+<td>{{row.humidity}}</td>
+
+<td>{{row.wind_speed}}</td>
+
+<td>{{row.pressure}}</td>
+
+<td>{{row.risk_level}}</td>
+
+<td>{{row.created_at}}</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+</body>
+</html>
