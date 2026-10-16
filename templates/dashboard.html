@@ -432,20 +432,22 @@
                 </a>
 
             </div>
+            
+
             <div class="card">
 
-                <h3>📩 Contact Messages</h3>
+            <div class="card-icon">
+                  📩
+                </div>
 
-                <h1 style="color:#e63946;"> 
-                    {{ message_count }}
-                </h1>
+                <h3>Contact Admin</h3>
 
                 <p>
-                   Total user messages
+                   Send your message or feedback to administrator.
                 </p>
 
-                <a href="/admin/messages">
-                   View Messages →
+                <a href="{{ url_for('contact') }}">
+                  Send Message →
                 </a>
 
             </div>
@@ -568,21 +570,23 @@
 
             <div class="card admin-card">
 
-    <div class="card-icon">
-        🤖
-    </div>
+                <div class="card-icon">
+                      🤖
+                </div>
 
-    <h3>AI Risk Prediction History</h3>
+                <h3>AI Risk Prediction History</h3>
 
-    <p>
-        View all AI disaster risk prediction records from users.
-    </p>
+                <p>
+                    View all AI disaster risk prediction records from users.
+                </p>
 
-    <a href="{{ url_for('admin_risk_predictions') }}">
-        View Predictions →
-    </a>
+                <a href="{{ url_for('admin_risk_predictions') }}">
+                   View Predictions →
+                </a>
 
-</div>
+            </div>
+
+            
             {% endif %}
 
         </section>
@@ -604,7 +608,24 @@
         </section>
 
     </main>
+    <!-- Back to Home Button -->
+    <div style="text-align: center; margin: 30px 0;">
+    <a href="{{ url_for('home') }}"
+       style="
+       display: inline-block;
+       padding: 13px 28px;
+       background: #102f4a;
+       color: white;
+       text-decoration: none;
+       border-radius: 10px;
+       font-weight: bold;
+       font-size: 16px;
+       ">
+        ← Back to Home
+    </a>
+    </div>
 
+     
 </body>
 
 </html>

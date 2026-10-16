@@ -418,6 +418,39 @@ def admin_messages():
         messages=messages
     )
 
+@app.route('/admin/dashboard')
+def admin_dashboard():
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    # Contact message count
+    cursor.execute(
+        "SELECT COUNT(*) AS total FROM contact_messages"
+    )
+
+    result = cursor.fetchone()
+    total_messages = result['total']
+
+
+    # SOS requests
+    cursor.execute(
+        "SELECT * FROM sos_requests ORDER BY id DESC"
+    )
+
+    sos_requests = cursor.fetchall()
+
+
+    cursor.close()
+    conn.close()
+
+
+    return render_template(
+        "admin_dashboard.html",
+        total_messages=total_messages,
+        sos_requests=sos_requests
+    )
+
 
 @app.route('/sos', methods=['GET', 'POST'])
 def sos():

@@ -278,7 +278,53 @@
 
             color: #d7192b;
         }
+        
 
+        /* BACK BUTTON */
+
+        .back-button {
+
+            display: block;
+
+            width: fit-content;
+
+            margin:
+                25px auto 0;
+
+            padding:
+                12px 25px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.20);
+
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.25
+                );
+        }
 
         /* ================= INFO ================= */
 
@@ -673,14 +719,7 @@
 
 
 
-                <!-- BUTTON -->
-
-                <a href="#"
-                   class="details-btn">
-
-                    View Details →
-
-                </a>
+                
 
 
             </div>
@@ -710,7 +749,10 @@
 
 
     </main>
-
+    
+    <a href="{{ url_for('dashboard') }}" class="back-btn">
+        ← Back 
+    </a>
 </div>
 
 </body>
