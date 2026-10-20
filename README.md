@@ -100,6 +100,7 @@ Default status:
 
 ```text
 Pending
+
 ### 🌦️ Weather Information
 
 The system uses the **OpenWeather API** to provide real-time weather information.
