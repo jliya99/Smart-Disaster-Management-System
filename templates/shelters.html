@@ -280,51 +280,53 @@
         }
         
 
-        /* BACK BUTTON */
+       
+        /* Modern Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
 
-        .back-button {
+            position: static;
+            margin-top: 18px;
 
-            display: block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #123f75, #0756a5);
+            color: #ffffff !important;
 
-            width: fit-content;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none !important;
 
-            margin:
-                25px auto 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50px;
+            box-shadow: 0 6px 18px rgba(18, 63, 117, 0.22);
 
-            padding:
-                12px 25px;
+            transition: all 0.25s ease;
+        }
+            
 
-            border-radius: 10px;
-
-            text-decoration: none;
-
-            color: white;
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.15
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,0.20);
-
-            transition: 0.2s;
+        .back-btn:hover {
+            background: linear-gradient(135deg, #0756a5, #087fbc);
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 9px 22px rgba(18, 63, 117, 0.32);
         }
 
-        .back-button:hover {
 
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.25
-                );
+        .back-btn:active {
+            transform: scale(0.97);
         }
+
+           @media (max-width: 650px) {
+        .back-btn {
+            top: auto;
+            right: 25px;
+            margin-top: 15px;
+        }
+        }
+
 
         /* ================= INFO ================= */
 
